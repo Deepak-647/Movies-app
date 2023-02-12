@@ -7,21 +7,21 @@ import movies from './reducers';
 
 const store = createStore(movies);
 console.log('STORE',store);
-console.log('BEFORE STATE',store.getState());
+// console.log('BEFORE STATE',store.getState());
 
-store.dispatch({
-  type : "ADD_MOVIES",
-  movies: [{name:"Superman"}]
-});
+// store.dispatch({
+//   type : "ADD_MOVIES",
+//   movies: [{name:"Superman"}]
+// });
 
-console.log('AFTER STATE',store.getState());
+// console.log('AFTER STATE',store.getState());
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App store={store} />
   </React.StrictMode>
 );
 
