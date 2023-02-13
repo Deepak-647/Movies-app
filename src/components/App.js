@@ -2,7 +2,7 @@ import {data} from '../files/data';
 import React from "react";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
-import { addMovies } from '../actions';
+import { addMovies} from '../actions';
 
 class App extends React.Component {
   componentDidMount (){
@@ -14,8 +14,18 @@ class App extends React.Component {
     //make api call 
     //dispatch the action
     store.dispatch(addMovies(data));
-    console.log("STATE",store.getState())
+    
   }
+  isMovieFavourite = (movie) =>{
+    const {favourites} =this.props.store.getState();
+    const index =favourites.indexOf(movie);
+    if (index !== -1){
+      //found the movie
+      return true;
+    }
+    return false;
+  }
+
   render (){
     const {list} = this.props.store.getState();
     console.log("RENDER",this.props.store.getState());
@@ -29,7 +39,11 @@ class App extends React.Component {
           </div>
           <div className="list">
             {list.map((movie, index) => (
-              <MovieCard movie={movie} key={`movies-${index}`} />
+              <MovieCard 
+              movie={movie} 
+              key={`movies-${index}`} 
+              dispatch={this.props.store.dispatch}
+              isFavourite={this.isMovieFavourite(movie)} />
             ))}
           </div>
         </div>
