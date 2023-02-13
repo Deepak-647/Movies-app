@@ -6,9 +6,14 @@ import MovieCard from "./MovieCard";
 
 class App extends React.Component {
   componentDidMount (){
+    const {store} =this.props;
+    store.subscribe(()=>{
+      console.log("Updated");
+      this.forceUpdate();
+    })
     //make api call 
     //dispatch the action
-    this.props.store.dispatch({
+    store.dispatch({
       type:"ADD_MOVIES",
       movies: data
     });
@@ -16,6 +21,7 @@ class App extends React.Component {
   }
   render (){
     const movies = this.props.store.getState();
+    console.log("RENDER");
     return (
       <div className="App">
         <Navbar />
