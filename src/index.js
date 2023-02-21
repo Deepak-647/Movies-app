@@ -18,9 +18,14 @@ import rootReducer from './reducers';
 
 const logger =({dispatch,getState}) => (next) =>(action) =>{
   //logger code
-   console.log('ACTION TYPE =',action.type);
+  
+    console.log('ACTION TYPE =',action.type);
+  
+   
       next(action);
 }
+
+
 const store = createStore(rootReducer ,applyMiddleware(logger));
 console.log('STORE',store);
 // console.log('BEFORE STATE',store.getState());
