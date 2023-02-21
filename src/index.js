@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App';
 import { createStore ,applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 //curried function logger (obj,next,action) 
@@ -18,15 +19,25 @@ import rootReducer from './reducers';
 
 const logger =({dispatch,getState}) => (next) =>(action) =>{
   //logger code
-  
+  if (typeof action !== 'function'){
     console.log('ACTION TYPE =',action.type);
+  }
+    
   
    
       next(action);
 }
 
+// const thunk =({dispatch, getState}) =>(next)=>(action) =>{
+//   //logger code
+//   if(typeof action ==='function'){
+//     action(dispatch);
+//     return;
+//   }
+//   next(action);
+// }
 
-const store = createStore(rootReducer ,applyMiddleware(logger));
+const store = createStore(rootReducer ,applyMiddleware(logger,thunk));
 console.log('STORE',store);
 // console.log('BEFORE STATE',store.getState());
 
