@@ -35,13 +35,10 @@ class App extends React.Component {
     console.log("RENDER",this.props.store.getState());
     const displayMovies =showFavourites ? favourites : list;
 
-    return (
-      <StoreContext.Consumer>
-        {
-          (store) => {
+    
             return (
               <div className="App">
-                <Navbar dispatch={this.props.store.getState()} search={search} />
+                <Navbar search={search} />
                 <div className="main">
                   <div className="tabs">
                     <div className={`tab ${showFavourites ? '' : 'active-tabs'}`} onClick={()=> this.onChangeTab(false)}>Movies</div>
@@ -60,13 +57,19 @@ class App extends React.Component {
                 </div>
               </div>
             );
-          }
-        }
-      </StoreContext.Consumer>
-    );
+      
     
   }
   
 }
 
-export default App;
+class AppWrapper extends React.Component{
+  render(){
+    return(
+      <StoreContext.Consumer>
+        {(store)=> <App store={store}/>}
+      </StoreContext.Consumer>
+    )
+  }
+}
+export default AppWrapper;
