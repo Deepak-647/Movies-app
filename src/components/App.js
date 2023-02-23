@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import { addMovies, setShowFavourites} from '../actions';
-import { StoreContext } from '../index';
+
 
 class App extends React.Component {
   componentDidMount (){
@@ -63,13 +63,14 @@ class App extends React.Component {
   
 }
 
-class AppWrapper extends React.Component{
-  render(){
-    return(
-      <StoreContext.Consumer>
-        {(store)=> <App store={store}/>}
-      </StoreContext.Consumer>
-    )
+
+
+function callback (state){
+  return{
+    movies: state.movies,
+    search: state.search
   }
 }
-export default AppWrapper;
+const connectedAppComponent = connect(callback)(App)
+
+export default connectedAppComponent;
